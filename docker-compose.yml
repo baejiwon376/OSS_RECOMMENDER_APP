@@ -1,0 +1,20 @@
+services:
+  back:
+    build:
+      context: .
+      dockerfile: back/Dockerfile
+    container_name: oss_recommender_back
+    ports:
+      - "8000:8000"
+
+  front:
+    build:
+      context: .
+      dockerfile: front/Dockerfile
+    container_name: oss_recommender_front
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://back:8000
+    depends_on:
+      - back
